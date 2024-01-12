@@ -1,0 +1,269 @@
+{% extends 'user/base.html' %}
+
+
+{% block content %}
+
+{% block head_title %}
+<title>Cart | HYGI</title>
+{% endblock head_title %}
+
+
+
+
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Shopping Cart
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html">Shop</a><span class="delimiter"></span>Shopping Cart
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="shop-cart">	
+										<div class="row">
+											<div class="col-xl-8 col-lg-12 col-md-12 col-12">
+												
+													<div class="table-responsive">
+														{% include 'includes/messege.html' %}
+														<table class="cart-items table" cellspacing="0">
+															<thead>
+																<tr>
+																	<th class="product-thumbnail">Product</th>
+																	<th class="product-price">Price</th>
+																	<th class="product-quantity">Quantity</th>
+																	<th class="product-subtotal">Subtotal</th>
+																	<th class="product-remove">&nbsp;</th>
+																</tr>
+															</thead>
+															<tbody>
+																{% for cart_item in cart_items %}
+																<tr class="cart-item">		
+																	<td class="product-thumbnail">
+																		<a href="shop-details.html">
+																			<img width="600" height="600" src="{{cart_item.variant.get_variant_image}}" class="product-image" alt="">
+																		</a>				
+																		<div class="product-name">
+																			<a href="shop-details.html">{{cart_item.product.name}}--{{cart_item.variant.material}}</a>								
+																		</div>
+																	</td>
+																	<td class="product-price">
+																		<span class="price">${{cart_item.variant.discounted_price}}</span>
+																	</td>
+																	<td class="product-quantity">
+                                                                        
+																		 
+																		<div class="quantity">
+																				
+																			<button type="button" class="minus" data-cartitem-id="{{ cart_item.id }}">
+																				<a href="#" class="quantity-button decrement-btn" data-cart-item-id="{{ cart_item.id }}">-</a> 
+																				
+																			</button>
+																			<input id="quantity-label-{{ cart_item.id }}" type="number" class="qty" step="1" min="0" max="" name="quantity" value="{{cart_item.quantity}}" title="Qty" size="4" placeholder="" inputmode="numeric" autocomplete="off">
+																			<button type="button" class="plus" data-cartitem-id="{{ cart_item.id }}">
+																				 <a href="#" class="quantity-button increment-btn" data-cart-item-id="{{ cart_item.id }}">+</a>
+																				
+																			</button>
+
+
+																			
+
+																		</div>
+																	</td>
+																	<td class="product-subtotal">
+																		<span id="cart-item-price-{{ cart_item.id }}">${{cart_item.get_total_price}}</span>
+																	</td>
+																	<td class="bottom-cart">
+																		{% comment %} <a href="{% url 'delete_cart_item' cart_item.id %}" >xx</a>	 {% endcomment %}
+																		<a href="{% url 'delete_cart_item' cart_item.id %}" >Remove</a>
+																								
+																	</td>
+																</tr>
+																{% endfor %}
+																<tr>
+																	<td colspan="6" class="actions">
+																		<div class="bottom-cart">
+																		<form  method="post">
+																			{% csrf_token %}
+																			<div class="coupon">
+																				<input type="text" name="coupon" class="input-text" id="coupon-code" placeholder="Enter your coupon code" required>
+
+																				<button type="submit" class="button">Apply coupon</button>
+																			</div>
+																		</form>
+
+
+																		<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#coupon">
+																			Coupons
+																		</button>
+
+                                                                        <!-- Modal -->
+																		<div class="modal fade" id="coupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																			<div class="modal-dialog modal-dialog-centered">
+																			<div class="modal-content">
+																				<div class="modal-header">
+																				<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+																				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																				</div>
+																				<div class="modal-body">
+																					
+																					{% for coupon in coupons %}
+																				   <div class="card text-bg-warning mb-3" style="max-width: 15rem;">
+																						<div class="card-header">CODE : {{coupon.code}}</div>
+																						<div class="card-body">
+																							<h5 class="card-title">Copy the code for use</h5>
+																							<p class="card-text">{{coupon.discout_price}} Rupees off on the purchase above {{coupon.minimum_amount}}.</p>
+																						</div>
+																					</div>
+																					{% endfor %}
+																				
+																				</div>
+																				   
+																				{% comment %} <div class="modal-footer">
+																				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																				<button type="button" class="btn btn-primary">Save changes</button>
+																				</div> {% endcomment %}
+																			</div>
+																			</div>
+																		</div>
+
+
+																			<a href="shop-grid-left.html" class="button">Continue Shopping</a>
+																		</div>	
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												
+											</div>
+											<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+												<div class="cart-totals">
+													<h2>Cart totals</h2>
+													<div>
+														<div class="cart-subtotal">
+															<div class="title">Subtotal</div>
+															<div><span id ="sub-total">${{cart.get_total_price}}</span></div>
+														</div>
+														<div class="shipping-totals">
+															<div class="title">Shipping</div>
+															<div>
+																<ul class="shipping-methods custom-radio">
+																	<li>
+																		<input type="radio" name="shipping_method" data-index="0" value="free_shipping" class="shipping_method" checked="checked"><label>Free shipping</label>
+																	</li>
+																	<li>
+																		<input type="radio" name="shipping_method" data-index="0" value="flat_rate" class="shipping_method"><label>Flat rate</label>					
+																	</li>
+																</ul>
+																<p class="shipping-desc">
+																	Shipping options will be updated during checkout.				
+																</p>
+															</div>
+														</div>
+														<div class="order-total">
+															<div class="title">Total</div>
+															<div><span id="grand-total">${{cart.get_coupon_discounted_price}}</span></div>
+														</div>
+													</div>
+													<div class="proceed-to-checkout">		
+														<a href="{% url 'checkout' %}" class="checkout-button button">
+															Proceed to checkout
+														</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="shop-cart-empty">
+										<div class="notices-wrapper">
+											<p class="cart-empty">Your cart is currently empty.</p>
+										</div>	
+										<div class="return-to-shop">
+											<a class="button" href="shop-grid-left.html">
+												Return to shop		
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+
+			<script>
+				$(document).ready(function() {
+					// Increment button click
+					$('.increment-btn').on('click', function(e) {
+						e.preventDefault();
+						var cartItemId = $(this).data('cart-item-id');
+						$.ajax({
+							type: "GET",
+							url: "{% url 'increment_cart_item' 0 %}".replace('0', cartItemId),
+							success: function(response) {
+								// Update the quantity label
+								$('#quantity-label-' + cartItemId).text(response.quantity);
+								// Update the cart total
+								$('#sub-total').text(response.sub_total);
+								// Update the cartitem price
+								$('#cart-item-price-'+ cartItemId).text('₹' + response.cart_total);
+								// Update the cart grand total
+								$('#grand-total').text(response.grand_total);
+								
+							},
+							error: function(response) {
+							  // Use SweetAlert2 to display the error message
+							  Swal.fire({
+								title: "Error",
+								text: response.responseJSON.error,
+								icon: "error",
+							});
+							}
+						});
+					});
+			  
+					// Decrement button click
+					$('.decrement-btn').on('click', function(e) {
+						e.preventDefault();
+						var cartItemId = $(this).data('cart-item-id');
+						$.ajax({
+							type: "GET",
+							url: "{% url 'decrement_cart_item' 0 %}".replace('0', cartItemId),
+							success: function(response) {
+								// Update the quantity label
+								$('#quantity-label-' + cartItemId).text(response.quantity);
+								// Update the cart total
+								$('#sub-total').text(response.sub_total);
+								// Update the cartitem price
+								$('#cart-item-price-'+ cartItemId).text('₹' + response.cart_total);
+								// Update the cart grand total
+								$('#grand-total').text(response.grand_total);
+							},
+							error: function(response) {
+							  Swal.fire({
+								title: "Error",
+								text: response.responseJSON.error,
+								icon: "error",
+							});
+							}
+						});
+					});
+				});
+			  </script>
+
+
+
+			{% endblock %}
+
+			

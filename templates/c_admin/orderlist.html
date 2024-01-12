@@ -1,0 +1,187 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Order List</h2>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card mb-4">
+                            {% comment %} <header class="card-header">
+                                <div class="row gx-3">
+                                    <div class="col-lg-4 col-md-6 me-auto">
+                                        <input type="text" placeholder="Search..." class="form-control" />
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-6">
+                                        <select class="form-select">
+                                            <option>Status</option>
+                                            <option>Active</option>
+                                            <option>Disabled</option>
+                                            <option>Show all</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 col-6">
+                                        <select class="form-select">
+                                            <option>Show 20</option>
+                                            <option>Show 30</option>
+                                            <option>Show 40</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </header> {% endcomment %}
+                            <!-- card-header end// -->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Customer name</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th class="text-end">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            {% for order in orders %}
+                                            <tr>
+                                                <td>{{order.id}}</td>
+                                                <td><b>{{order.user.username}}</b></td>
+                                                <td>${{order.total_price}}</td>
+                                                {% if order.status == "PENDING"%}
+                                                <td><span class="badge rounded-pill alert-warning">{{order.status}}</span></td>
+                                                {% elif order.status == "CANCELLED"%}
+                                                <td><span class="badge rounded-pill alert-danger">{{order.status}}</span></td>
+                                                {% else %}
+                                                <td><span class="badge rounded-pill alert-success">{{order.status}}</span></td>
+                                                {% endif %}
+                                                <td>{{order.created_at}}</td>
+                                                <td class="text-end">
+                                                    <a href="{% url 'admin_orderdetails' order.id %}" class="btn btn-md rounded font-sm">Detail</a>
+                                                    {% comment %} <div class="dropdown">
+                                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> Change status<i class="material-icons md-more_horiz"></i> </a>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" href="#">pending</a>
+                                                            <a class="dropdown-item" href="#">Processing</a>
+                                                            <a class="dropdown-item" href="#">Shipped</a>
+                                                            <a class="dropdown-item" href="#">Delivered</a>
+                                                            <a class="dropdown-item" href="#">Cancelled</a>
+                                                            
+                                                        </div>
+                                                    </div> {% endcomment %}
+                                                    <div class="dropdown">
+                                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm">Change status<i class="material-icons md-more_horiz"></i></a>
+                                                        <div class="dropdown-menu">
+                                                            <form method="post" action="{% url 'admin_edit_orderstatus' order.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="status" value="PENDING">
+                                                                <button type="submit" class="dropdown-item">Pending</button>
+                                                            </form>
+                                                            <form method="post" action="{% url 'admin_edit_orderstatus' order.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="status" value="PROCESSING">
+                                                                <button type="submit" class="dropdown-item">Processing</button>
+                                                            </form>
+                                                            <form method="post" action="{% url 'admin_edit_orderstatus' order.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="status" value="SHIPPED">
+                                                                <button type="submit" class="dropdown-item">Shipped</button>
+                                                            </form>
+                                                            <form method="post" action="{% url 'admin_edit_orderstatus' order.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="status" value="DELIVERED">
+                                                                <button type="submit" class="dropdown-item">Delivered</button>
+                                                            </form>
+                                                            <form method="post" action="{% url 'admin_edit_orderstatus' order.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="status" value="CANCELLED">
+                                                                <button type="submit" class="dropdown-item">Cancelled</button>
+                                                            </form>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <!-- dropdown //end -->
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                           
+                                           
+                                            
+                                           
+                                           
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- table-responsive //end -->
+                            </div>
+                            <!-- card-body end// -->
+                        </div>
+                        <!-- card end// -->
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="mb-3">Filter by</h5>
+                                <form>
+                                    <div class="mb-4">
+                                        <label for="order_id" class="form-label">Order ID</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_id" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="order_customer" class="form-label">Customer</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_customer" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Order Status</label>
+                                        <select class="form-select">
+                                            <option>Published</option>
+                                            <option>Draft</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="order_total" class="form-label">Total</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_total" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="order_created_date" class="form-label">Date Added</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_created_date" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="order_modified_date" class="form-label">Date Modified</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_modified_date" />
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="order_customer_1" class="form-label">Customer</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="order_customer_1" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- card end// -->
+                    </div>
+                </div>
+                <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <!-- content-main end// -->
+           {% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+
+<div class="card mb-4">
+    <header class="card-header">
+        <h4 class="card-title">Completed orders</h4>
+        <div class="row align-items-center">
+            {% comment %} <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                <div class="custom_select">
+                    <select class="form-select select-nice">
+                        <option selected>All Categories</option>
+                        <option>Women's Clothing</option>
+                        <option>Men's Clothing</option>
+                        <option>Cellphones</option>
+                        <option>Computer & Office</option>
+                        <option>Consumer Electronics</option>
+                        <option>Jewelry & Accessories</option>
+                        <option>Home & Garden</option>
+                        <option>Luggage & Bags</option>
+                        <option>Shoes</option>
+                        <option>Mother & Kids</option>
+                    </select>
+                </div>
+            </div> {% endcomment %}
+        <form method = "POST">
+                {% csrf_token %}
+            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                <button class="btn btn-xs">from</button>
+                <input type="date"  class="form-control mt-1" name = "start_date"/>
+            </div>
+            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                <button class="btn btn-xs">to</button>
+                <input type="date"  class="form-control mt-1" name = "end_date"/>
+            </div>
+            <div class="col-lg-2 col-md-3 col-6 mt-4">
+                <select class="form-select" name="download_format">
+                    <option value="" disabled selected>Select Download Format</option>
+                    <option value="pdf">PDF</option>
+                    <option value="excel">Excel</option>
+                    
+                </select>
+            </div>
+            <div>
+            <button type="submit" class="btn btn-primary mt-4">Download report</button>
+            </div> 
+
+        </form>
+        </div>
+        
+    </header>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="table-responsive">
+                <table class="table align-middle table-nowrap mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            {% comment %} <th scope="col" class="text-center">
+                                <div class="form-check align-middle">
+                                    <input class="form-check-input" type="checkbox" id="transactionCheck01" />
+                                    <label class="form-check-label" for="transactionCheck01"></label>
+                                </div>
+                            </th> {% endcomment %}
+                            <th class="align-middle" scope="col">Order ID</th>
+                            <th class="align-middle" scope="col">Billing Name</th>
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Total</th>
+                            <th class="align-middle" scope="col">Payment Status</th>
+                            <th class="align-middle" scope="col">Payment Method</th>
+                            <th class="align-middle" scope="col">View Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            {% comment %} <td class="text-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="transactionCheck02" />
+                                    <label class="form-check-label" for="transactionCheck02"></label>
+                                </div>
+                            </td> {% endcomment %}
+                            <td><a href="#" class="fw-bold">#{{order.id}}</a></td>
+                            <td>{{order.user.username}}</td>
+                            <td>{{order.updated_at}}</td>
+                            <td>${{order.total_price}}</td>
+                            <td>
+                                <span class="badge badge-pill badge-soft-success">Paid</span>
+                            </td>
+                            <td><i class="material-icons md-payment font-xxl text-muted mr-5"></i> {{order.payment_method}}</td>
+                            <td>
+                                <a href="#" class="btn btn-xs"> View details</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                       
+                        
+                       
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- table-responsive end// -->
+    </div>
+</div>
+<div class="pagination-area mt-30 mb-50">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-start">
+            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+            <li class="page-item"><a class="page-link" href="#">02</a></li>
+            <li class="page-item"><a class="page-link" href="#">03</a></li>
+            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+            <li class="page-item"><a class="page-link" href="#">16</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</section>
+<!-- content-main end// -->
+{% endblock content %}

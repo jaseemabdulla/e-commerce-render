@@ -1,0 +1,114 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+
+{% block head_title %}
+<title>Add Address | HYGI</title>
+{% endblock head_title %}
+
+{% block add_style_head %}
+<link rel="stylesheet" href="libs/slider/css/jslider.css">
+<link rel="stylesheet" href="libs/select2/css/select2.min.css">
+{% endblock add_style_head %}
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Add Address
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html">Shop</a><span class="delimiter"></span>Shopping Cart
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="shop-checkout">
+										<form name="checkout" method="post" class="checkout" action="#" autocomplete="off">
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-xl-8 col-lg-7 col-md-12 col-12">
+													<div class="customer-details">
+														<div class="billing-fields">
+															<h3>Address details</h3>
+															<div class="billing-fields-wrapper">
+																<p class="form-row form-row-first validate-required">
+																	<label>Address Name <span class="required" title="required">*</span></label>
+																	<span class="input-wrapper"><input type="text" class="input-text" name="addressname" required></span>
+																</p>
+																
+																<p class="form-row form-row-first validate-required">
+																	<label>Name <span class="required" title="required">*</span></label>
+																	<span class="input-wrapper"><input type="text" class="input-text" name="name" required></span>
+																</p>
+																
+																
+																
+																<p class="form-row address-field validate-required form-row-wide">
+																	<label>Street address <span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<input type="text" class="input-text" name="street" placeholder="street" required>
+																	</span>
+																</p>
+																
+																<p class="form-row address-field validate-required form-row-wide">
+																	<label for="billing_city" class="">City <span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<input type="text" class="input-text" name="city" required>
+																	</span>
+																</p>
+																<p class="form-row address-field validate-required validate-state form-row-wide">
+																	<label>State<span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<input type="text" class="input-text" name="state" required>
+																	</span>
+																</p>
+																<p class="form-row address-field validate-required validate-postcode form-row-wide">
+																	<label>Postcode<span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<input type="text" class="input-text" name="postcode" pattern="[0-9]{6}" required>
+																	</span>
+																</p>
+																<p class="form-row form-row-wide validate-required validate-phone">
+																	<label>Phone <span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<input type="tel" class="input-text" name="phone" pattern="[0-9]{10}" required>
+																	</span>
+																</p>
+																
+																<button type="submit" class="button alt" name="checkout_place_order" value="Place order">Add</button>
+															</div>
+														</div>
+														
+													</div>
+													
+													
+													
+												</div>
+												
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+
+{% endblock %}
+{% block add_style_footer %}
+<script src="libs/slider/js/tmpl.js"></script>
+<script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
+<script src="libs/slider/js/draggable-0.1.js"></script>
+<script src="libs/slider/js/jquery.slider.js"></script>
+<script src="libs/elevatezoom/js/jquery.elevatezoom.js"></script>
+<script src="libs/select2/js/select2.min.js"></script>	
+{% endblock add_style_footer %}

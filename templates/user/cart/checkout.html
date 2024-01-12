@@ -1,0 +1,156 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+
+{% block head_title %}
+<title>Checkout | HYGI</title>
+{% endblock head_title %}
+
+{% block add_style_head %}
+<link rel="stylesheet" href="libs/slider/css/jslider.css">
+<link rel="stylesheet" href="libs/select2/css/select2.min.css">
+{% endblock add_style_head %}
+
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Checkout
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html">Shop</a><span class="delimiter"></span>Shopping Cart
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="shop-checkout">
+										{% include 'includes/messege.html' %}
+										<form name="checkout" method="post"  action="{% url 'place_order' %}" >
+											{% csrf_token %}
+											<div class="row">
+												<div class="col-xl-8 col-lg-7 col-md-12 col-12">
+													<div class="customer-details">
+														<div class="billing-fields">
+															<h3>Billing details</h3>
+															<div class="billing-fields-wrapper">
+																
+																
+																
+																
+																
+																{% comment %} <p class="form-row address-field validate-required validate-state form-row-wide">
+																	<label>Address<span class="required" title="required">*</span></label>
+																	<span class="input-wrapper">
+																		<select name="billing_state" class="state-select custom-select">
+																			<option value="">Select a state</option>
+																			<option value="ke">Kerala</option>
+																			<option value="ta">Tamilnadu</option>
+																		</select>
+																	</span>
+																</p> {% endcomment %}
+																
+																<p class="form-row address-field validate-required validate-state form-row-wide">
+																	<label>Address<span class="required" title="required">*</span></label>
+																	{% for address in addresses %}
+																	<div class="input-wrapper">
+																		<label>
+																			<input type="radio" name="address" value="{{address.id}}">
+																			{{address.address_name}}
+																			<address>
+																				{{address.name}}<br>
+																				{{address.street}},{{address.city}},{{address.state}},{{address.phone_number}}<br>
+																				{{address.postcode}}
+																			</address>
+																		</label>
+																		
+																	</div>
+																	{% endfor %}
+																	
+																</p>
+																<div class="btn-quick-buy" data-title="Wishlist">
+																	<a href="{% url 'add_address' %}" class="product-btn">Add Address</a>
+																</div>
+															</div>
+														</div>
+														
+													</div>
+													
+													
+												</div>
+												<div class="col-xl-4 col-lg-5 col-md-12 col-12">
+													<div class="checkout-review-order">
+														<div class="checkout-review-order-table">
+															<div class="review-order-title">Product</div>
+															<div class="cart-items">
+																{% for cart_item in cart_items %}
+																<div class="cart-item">
+																	<div class="info-product">
+																		<div class="product-thumbnail">
+																			<img width="600" height="600" src="{{cart_item.variant.get_variant_image}}" alt="">					
+																		</div>
+																		<div class="product-name">
+																			{{cart_item.product.name}}--{{cart_item.variant.material}}
+																			<strong class="product-quantity">QTY : {{cart_item.quantity}}</strong>											
+																		</div>
+																	</div>
+																	<div class="product-total">
+																		<span>${{cart_item.get_total_price}}</span>
+																	</div>
+																</div>
+																{% endfor %}
+															</div>
+															
+															
+
+															<div class="order-total">
+																<h2>Total</h2>
+																<div class="total-price">
+																	<strong>
+																		<span>${{cart.get_coupon_discounted_price}}</span>
+																	</strong> 
+																</div>
+															</div>
+														</div>
+														<div id="payment" class="checkout-payment">
+															
+															
+																<button type="submit" class="button alt" name="payment_method" value="COD">Cash on delivery</button>
+															
+															
+																<button type="button" class="button alt mt-3 payWithRazorpay"  name="payment_method" value="Razorpay">Razorpay</button>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+{% endblock %}
+{% block add_style_footer %}
+<script src="/static/user/libs/slider/js/tmpl.js"></script>
+<script src="/static/user/libs/slider/js/jquery.dependClass-0.1.js"></script>
+<script src="/static/user/libs/slider/js/draggable-0.1.js"></script>
+<script src="/static/user/libs/slider/js/jquery.slider.js"></script>
+<script src="/static/user/libs/elevatezoom/js/jquery.elevatezoom.js"></script>
+<script src="/static/user/libs/select2/js/select2.min.js"></script>	
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="/static/user/assets/js/checkout1.js"></script>
+{% endblock add_style_footer %}
+
+		
+			

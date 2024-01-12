@@ -1,0 +1,100 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+{% block head_title %}
+<title>My Account | HYGI</title>
+{% endblock head_title %}
+
+{% block add_style_head %}
+<link rel="stylesheet" href="libs/slider/css/jslider.css">
+{% endblock add_style_head %}
+
+
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										My Account
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span>My Account<span class="delimiter"></span>Address
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="page-my-account">
+										<div class="my-account-wrap clearfix">
+											<nav class="my-account-navigation">
+												<ul class="nav nav-tabs">
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_profile' %}" >Dashboard</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_orders' %}" >Orders</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_details' %}" >Account details</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_address' %}" >Address</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_wallet' %}" >Wallet</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="">Logout</a>
+													</li>
+												</ul>
+											</nav>
+											<div class="my-account-content tab-content">
+												
+												
+												<div>
+													<div class="my-account-addresses">
+														<p>
+															The following addresses will be used on the checkout page by default.
+														</p>
+														<div class="addresses">
+															{% for address in addresses %}
+															<div class="addresses-col">
+																<header class="col-title">
+																	<h3>{{address.address_name}}</h3>
+																	<a href="#" class="edit">Edit</a>
+																</header>
+																<address>
+		                                                            {{address.name}}<br>
+		                                                            {{address.street}},{{address.city}},{{address.state}}<br>
+		                                                            Mobile : {{address.phone_number}}<br>
+		                                                            {{address.postcode}}
+		                                                        </address>
+															</div>
+															{% endfor %}
+														</div>
+													</div>
+												</div>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+			{% endblock %}
+			{% block add_style_footer %}
+			<script src="libs/slider/js/tmpl.js"></script>
+		    <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
+		    <script src="libs/slider/js/draggable-0.1.js"></script>
+		    <script src="libs/slider/js/jquery.slider.js"></script>
+		    {% endblock add_style_footer %}
+			

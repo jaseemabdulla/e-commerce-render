@@ -1,0 +1,139 @@
+{% extends 'user/base.html' %}
+
+
+
+{% block content %}
+
+{% block head_title %}
+<title>Register | HYGI</title>
+{% endblock head_title %}
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Register
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span>Register
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="page-login-register"> 
+										<div class="row"> 
+										{% if otp %}
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="box-form-login">
+												<h2 class="register">OTP Validation</h2>
+												<div class="box-content">
+													<div class="form-register">
+														<form method="post" class="register">
+															{% csrf_token %}
+															{% include 'includes/messege.html' %}
+															<div class="username">
+																<label>OTP <span class="required">*</span></label>
+																<input type="text" class="input-text" name="otp" value="" pattern="\d{6}">
+															</div>
+															
+															
+															<div class="email">
+																<label>Email address <span class="required">*</span></label>
+																<input type="hidden" class="input-text" name="email" value="{{usr.email}}">
+															</div>
+															
+													
+															<div class="button-register">
+																<input type="submit" class="button" name="register" value="Register">
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6">
+											<div class="login_part_text text-center">
+												<div class="login_part_text_iner">
+													<h2>New to our Shop?</h2>
+													<p>There are advances being made in science and technology
+														everyday, and a good example of this is the</p>
+													<a href="" class="btn_3">Create an Account</a>
+												</div>
+											</div>
+										</div>
+										{% else %}	
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="box-form-login">
+													<h2 class="register">Register</h2>
+													<div class="box-content">
+														<div class="form-register">
+															<form method="post" class="register">
+																{% csrf_token %}
+															{% include 'includes/messege.html' %}
+																<div class="username">
+																	<label>First name <span class="required">*</span></label>
+																	<input type="text" class="input-text" name="firstname" value="" pattern="[A-Za-z\s]{2,}" required>
+																</div>
+																<div class="username">
+																	<label>Last name <span class="required">*</span></label>
+																	<input type="text" class="input-text" name="lastname" value="" pattern="[A-Za-z\s]{2,}" required>
+																</div>
+																<div class="username">
+																	<label>Username <span class="required">*</span></label>
+																	<input type="text" class="input-text" name="username" value="" pattern="[a-zA-Z0-9_]{3,20}" title="Username must be 3 to 20 characters long and can only contain letters, numbers, and underscores." required>
+																</div>
+																<div class="phone-number">
+																	<label>Phone Number</label>
+																	<input type="tel" class="input-text" name="phone" pattern="[1-9][0-9]{9}" value="">
+																</div>
+																<div class="email">
+																	<label>Email address <span class="required">*</span></label>
+																	<input type="email" class="input-text" name="email" value="">
+																</div>
+																<div class="password">
+																	<label>Password <span class="required">*</span></label>
+																	<input type="password" class="input-text" name="password1">
+																</div>
+																<div class="password">
+																	<label>Confirm Password <span class="required">*</span></label>
+																	<input type="password" class="input-text" name="password2">
+																</div>
+																<div class="button-register">
+																	<input type="submit" class="button" name="register" value="Register">
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6">
+												<div class="login_part_text text-center">
+													<div class="login_part_text_iner">
+														<h2>New to our Shop?</h2>
+														<p>There are advances being made in science and technology
+															everyday, and a good example of this is the</p>
+														<a href="{% url 'user_login' %}" class="btn_3">Login</a>
+													</div>
+												</div>
+											</div>
+                                            {% endif %}
+
+
+											
+										 </div> 
+									 </div>
+								</div>
+							</div> 
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+
+			{% endblock %}		

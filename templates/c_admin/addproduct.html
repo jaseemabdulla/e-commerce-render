@@ -1,0 +1,125 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Add New Product</h2>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Product title</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="product_name" name='name'/>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Full description</label>
+                                        <textarea placeholder="Type here" class="form-control" rows="4" name="description"></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Specifications</label>
+                                        <textarea placeholder="Type here" class="form-control" rows="4" name="specification"></textarea>
+                                    </div>
+                                    
+                                   
+                                    
+                                    
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label">Brand</label>
+                                        <select class="form-select" name="brand" required>
+                                            {% for brand in brands %}
+                                            <option value="{{brand.id}}">{{brand}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div> 
+                                    <div class="col-sm-6 mb-3">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" name="category" required>
+                                            {% for category in categories %}
+                                            <option value="{{category.id}}">{{category}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div> 
+                                    
+                                    <div id="variants-container">
+                                        <div class="variant-container">
+                                            <!-- Variant 1 -->
+                                            <div class="mb-4 row gx-2">
+                                                <label class="form-label">Material</label>
+                                                <input placeholder="" type="text" class="form-control" name="variant_material" required>
+                                                <label class="form-label">Price</label>
+                                                <input placeholder="" type="text" class="form-control" name="variant_price" required>
+                                                <label class="form-label">Stock</label>
+                                                <input placeholder="" type="text" class="form-control" name="variant_stock" required>
+                                
+                                                <!-- Images for Variant 1 -->
+                                                <div class="images-container" data-variant-index="0">
+                                                    <label class="form-label">Images</label>
+                                                    <input class="form-control" name="images_0_0" type="file" accept="image/*" required>
+                                                </div>
+                                                <button type="button" class="add-image-button" data-variant-index="0">Add Image</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="add-variant-button">Add Variant</button>
+                                
+                                    
+                                   
+                                    <button id="add_image_button" class="btn btn-md rounded font-sm hover-up" type="submit">Add</button>
+                                </form>
+                                
+                               
+
+
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            </section>
+            <!-- content-main end// -->
+           {% endblock %}
+
+           {% comment %} {% block imagecount %}
+           <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+           <script>
+            
+               $(document).ready(function() {
+                   var imageInput = document.getElementById("id_images");
+       
+                   imageInput.addEventListener("change", function() {
+                       var fileCount = this.files.length;
+                       if (fileCount > 1) {
+                           $(this).next(".custom-file-label").text(fileCount + " files selected");
+                       } else {
+                           var fileName = $(this).val().split("\\").pop();
+                           $(this).next(".custom-file-label").text(fileName);
+                       }
+                   });
+               });
+           </script>
+           <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var maxImageCount = 5; // Set the maximum image count here
+                var imageInput = document.getElementById("image_input");
+    
+                imageInput.addEventListener("change", function() {
+                    var imageCount = imageInput.files.length;
+                    if (imageCount > maxImageCount) {
+                        // Limit the number of selected images to the maximum count
+                        imageInput.value = imageInput.files.slice(0, maxImageCount);
+                    }
+                });
+            });
+        </script>
+           {% endblock imagecount %} {% endcomment %}

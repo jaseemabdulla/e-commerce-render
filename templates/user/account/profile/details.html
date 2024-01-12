@@ -1,0 +1,120 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+{% block head_title %}
+<title>My Account | HYGI</title>
+{% endblock head_title %}
+
+{% block add_style_head %}
+<link rel="stylesheet" href="libs/slider/css/jslider.css">
+{% endblock add_style_head %}
+
+
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										My Account
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span>My Account<span class="delimiter"></span>Account details
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="page-my-account">
+										{% include 'includes/messege.html' %}
+										<div class="my-account-wrap clearfix">
+											<nav class="my-account-navigation">
+												<ul class="nav nav-tabs">
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_profile' %}" >Dashboard</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_orders' %}" >Orders</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_details' %}" >Account details</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_address' %}" >Address</a>
+													</li>
+													<li class="nav-item">
+														<a  class="nav-link" href="{% url 'user_wallet' %}" >Wallet</a>
+													</li>
+													<li class="nav-item">
+														<a class="nav-link" href="">Logout</a>
+													</li>
+												</ul>
+											</nav>
+											<div class="my-account-content tab-content">
+												<div>
+													<div class="my-account-account-details">
+														<form class="edit-account" action="#" method="post">
+															{% csrf_token %}
+															<p class="form-row">
+																<label for="account_first_name">First name <span class="required">*</span></label>
+																<input type="text" class="input-text" value="{{user.first_name}}" name="first_name">
+															</p>
+															<p class="form-row">
+																<label>Last name <span class="required">*</span></label>
+																<input type="text" class="input-text" value="{{user.last_name}}" name="last_name">
+															</p>
+															<div class="clear"></div>
+															<p class="form-row">
+																<label>Username <span class="required">*</span></label>
+																<input type="text" class="input-text" value="{{user.username}}" name="username"> 
+																<span><em>This will be how your name will be displayed in the account section and in reviews</em></span>
+															</p>
+															<div class="clear"></div>
+															<p class="form-row">
+																<label>Email address <span class="required">*</span></label>
+																<input type="email" class="input-text" value="{{user.email}}"name="account_email">
+															</p>
+															<fieldset>
+																<legend>Password change</legend>
+																<p class="form-row">
+																	<label>Current password (leave blank to leave unchanged)</label>
+																	<input type="password" class="input-text" name="password" autocomplete="off">
+																</p>
+																<p class="form-row">
+																	<label>New password (leave blank to leave unchanged)</label>
+																	<input type="password" class="input-text" name="password1" autocomplete="off">
+																</p>
+																<p class="form-row">
+																	<label>Confirm new password</label>
+																	<input type="password" class="input-text" name="password2" autocomplete="off">
+																</p>
+															</fieldset>
+															<div class="clear"></div>
+															<p class="form-row">
+																<button type="submit" class="button" name="save_account_details" value="Save changes">Save changes</button>
+															</p>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+			{% endblock %}
+			{% block add_style_footer %}
+			<script src="libs/slider/js/tmpl.js"></script>
+		    <script src="libs/slider/js/jquery.dependClass-0.1.js"></script>
+		    <script src="libs/slider/js/draggable-0.1.js"></script>
+		    <script src="libs/slider/js/jquery.slider.js"></script>
+		    {% endblock add_style_footer %}
+			

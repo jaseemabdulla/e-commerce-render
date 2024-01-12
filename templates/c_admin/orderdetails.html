@@ -1,0 +1,118 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <h2 class="content-title">order details</h2>
+                    <div>
+                        <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            
+                            <div class="col-search">
+                                <form action="" method="GET" class="searchform" >
+                                    <div class="input-group">
+                                        <input list="search_terms" type="text" class="form-control" placeholder="Search term" name="key" required value="{{key}}" />
+                                        <button class="btn btn-light bg" type="submit"><i class="material-icons md-search"></i></button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                            {% comment %} <div class="col-lg-2 col-md-3 col-6">
+                                <select class="form-select">
+                                    <option>Status</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-6">
+                                <select class="form-select">
+                                    <option>Show 20</option>
+                                    <option>Show 30</option>
+                                    <option>Show 40</option>
+                                </select>
+                            </div> {% endcomment %}
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr> 
+                                        <th> product Name</th>
+                                        <th>Quantity</th>
+                                        <th>price</th>
+                                        
+                                        <th class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                 {% for orderitem in orderitems %}
+                                    <tr>
+                                        
+                                        <td width="40%">
+                                            <a href="#" class="itemside">
+                                                <div class="left">
+                                                   
+                                                    <img src="{{orderitem.product_variant.get_variant_image}}" class="img-sm img-avatar" alt="Product Image" />
+                                                   
+                                                    
+                                                </div>
+                                                <div class="info pl-3">
+                                                    <h6 class="mb-0 title">{{orderitem.product_variant.product.name}}</h6>
+                                                    <small class="text-muted">Product ID: #</small>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>{{orderitem.quantity}}</td>
+                                        <td>{{orderitem.total_price}}</td>
+                                        
+                                        
+                                       
+
+                                        
+                                       
+                                       
+                                        <td class="text-end">
+                                            <a href="" class="btn btn-sm btn-brand rounded font-sm mt-15">Edit Variant</a>
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                    
+                                   
+            
+                                </tbody>
+                            </table>
+
+
+                            <!-- table-responsive.// -->
+                        </div>
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+                <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+            <!-- content-main end// -->
+            {% endblock %}
+            

@@ -1,0 +1,313 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="content-header">
+                    <div>
+                        <h2 class="content-title card-title">Offer List</h2>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                    </div>
+                   
+                </div>
+                {% include 'includes/messege.html' %}
+                <div class="card mb-4">
+                   
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                      
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Start date</th>
+                                        <th scope="col">End date</th>
+                                        <th scope="col">Discount percentage</th>
+                                        
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {% for offer in offers %}
+                                    <tr>
+                                        
+                                        <td><b>{{offer.title}}</b></td>
+                                        <td>{{offer.start_date}}</td>
+                                        <td>{{offer.end_date}}</td>
+                                        <td>{{offer.discount_percentage}}</td>
+                                        
+                                        
+                                       
+                                    </tr>
+                                    {% endfor %}
+                                                                       
+                                </tbody>
+                            </table>
+                            <a href="{% url 'add_offer' %}" class="btn btn-md rounded font-sm">Add offer</a>
+                        </div>
+                        <!-- table-responsive //end -->
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+
+
+                <!-- Category // -->  
+
+
+                <div class="content-header">
+                    <h2 class="content-title">Category list</h2>
+                    
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            
+                            <div class="col-search">
+                                <form action="" method="GET" class="searchform" >
+                                    <div class="input-group">
+                                        <input list="search_terms" type="text" class="form-control" placeholder="Search term" name="key" required value="{{key}}" />
+                                        <button class="btn btn-light bg" type="submit"><i class="material-icons md-search"></i></button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                            {% comment %} <div class="col-lg-2 col-md-3 col-6">
+                                <select class="form-select">
+                                    <option>Status</option>
+                                    <option>Active</option>
+                                    <option>Disabled</option>
+                                    <option>Show all</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 col-md-3 col-6">
+                                <select class="form-select">
+                                    <option>Show 20</option>
+                                    <option>Show 30</option>
+                                    <option>Show 40</option>
+                                </select>
+                            </div> {% endcomment %}
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr> 
+                                        <th> Category Name</th>
+                                        <th>description</th>
+                                        
+                                       
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for category in categories %}
+                                    <tr>
+                                        
+                                        <td width="40%">
+                                            <div  class="itemside">
+                                                <div class="left">
+                                                    
+                                                    <img src="{{category.image.url}}" class="img-sm img-avatar" alt="Product Image" />
+                                                    
+                                                </div>
+                                                <div class="info pl-3">
+                                                    <h6 class="mb-0 title">{{category.name}}</h6>
+                                                    {% comment %} <small class="text-muted">Product ID: #</small> {% endcomment %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{category.description}}</td>
+                                        {% if category.offer %}
+                                        <td><a href="{% url 'remove_offer' category.id%}?key=category" class="btn btn-md rounded font-sm">Remove offer</a></td>
+                                        {% endif %}
+                                        <td class="text-end">
+                                            <div class="dropdown">
+                                                <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm">Apply offer<i class="material-icons md-more_horiz"></i></a>
+                                                <div class="dropdown-menu">
+                                                    {% for offer in offers %}
+                                                    
+                                                        
+                                                        <a href="{% url 'apply_offer' %}?offer_id={{offer.id}}&category_id={{category.id}}" class="dropdown-item">{{offer.title}}</a>
+                                                    {% endfor %}
+                                                   
+                                                </div>
+                                            </div>  
+                                                
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                    
+                                   
+            
+                                </tbody>
+                            </table>
+
+
+                            <!-- table-responsive.// -->
+                        </div>
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+
+
+                <!-- Variant// -->
+
+
+                <div class="content-header">
+                    <h2 class="content-title">Variant list</h2>
+                   
+                </div>
+                <div class="card mb-4">
+                    <header class="card-header">
+                        <div class="row gx-3">
+                            
+                            <div class="col-search">
+                                <form action="" method="GET" class="searchform" >
+                                    <div class="input-group">
+                                        <input list="search_terms" type="text" class="form-control" placeholder="Search term" name="key" required value="{{key}}" />
+                                        <button class="btn btn-light bg" type="submit"><i class="material-icons md-search"></i></button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </header>
+                    <!-- card-header end// -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr> 
+                                        <th> product Name</th>
+                                        <th>Material</th>
+                                        <th>price</th>
+                                       
+                                        <th>stock</th>
+                                        <th>stock</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for variant in page_obj %}
+                                    <tr>
+                                        
+                                        <td width="40%">
+                                            <div  class="itemside">
+                                                <div class="left">
+                                                    {% if variant.images.all %}
+                                                    <img src="{{variant.images.all.0.image.url}}" class="img-sm img-avatar" alt="Product Image" />
+                                                    {% else %}
+                                                    <img src="path/to/default/image.jpg" class="img-sm img-avatar" alt="Default Image" />
+                                                    {% endif %}
+                                                </div>
+                                                <div class="info pl-3">
+                                                    <h6 class="mb-0 title">{{variant.product.name}}</h6>
+                                                    {% comment %} <small class="text-muted">Product ID: #</small> {% endcomment %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{variant.material}}</td>
+                                        <td>{{variant.price}}</td>
+                                        
+                                        
+                                        
+
+                                        
+                                       
+                                        <td>{{variant.stock_quantity}}</td>
+                                        {% if variant.offer %}
+                                        <td><a href="{% url 'remove_offer' variant.id%}?key=variant" class="btn btn-md rounded font-sm mr-0">Remove offer</a></td>
+                                        {% endif %}
+                                        <td class="text-end">
+                                            <div class="dropdown">
+                                                <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm">Add offer<i class="material-icons md-more_horiz"></i></a>
+                                                <div class="dropdown-menu">
+                                                    {% for offer in offers %}
+                                                    <a href="{% url 'apply_offer' %}?offer_id={{offer.id}}&variant_id={{variant.id}}" class="dropdown-item">{{offer.title}}</a>
+
+                                                    {% endfor %}
+                                                   
+                                                </div>
+                                            </div>  
+                                                
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                    
+                                   
+            
+                                </tbody>
+                            </table>
+
+
+                            <!-- table-responsive.// -->
+                        </div>
+                    </div>
+                    <!-- card-body end// -->
+                </div>
+                <!-- card end// -->
+                {% comment %} <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div> {% endcomment %}
+
+                <div class="pagination-area mt-15 mb-50">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-start">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+            </section>
+            <!-- content-main end// -->
+           {% endblock %}

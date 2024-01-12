@@ -1,0 +1,51 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Add New Brand</h2>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}                                  
+                                    {% comment %} {{ form.as_p }} {% endcomment %}
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Brand title</label>
+                                        <input type="text" placeholder="Type here" class="form-control" id="product_name" name="name"/>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Full description</label>
+                                        <textarea placeholder="Type here" class="form-control" rows="4" name="description"></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Images</label>
+                                        
+                                        <input class="form-control" name='image' type="file" accept="image/*" required> 
+                                    </div>
+                                       
+                                   
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Add</button>    
+                                    
+                                        
+                                    
+                                   
+                                    
+                                </form>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </section>
+            <!-- content-main end// -->
+           {% endblock %}

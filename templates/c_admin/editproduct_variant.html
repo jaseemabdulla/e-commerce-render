@@ -1,0 +1,88 @@
+{% extends 'c_admin/base.html' %}
+
+{% block content %}
+            <section class="content-main">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="content-header">
+                            <h2 class="content-title">Edit variant</h2>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>Basic</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="mb-4">
+                                        <label for="product_name" class="form-label">Matrial</label>
+                                        <input type="text" value="{{variant.material}}" placeholder="Type here" class="form-control" id="product_name" name='material'/>
+                                    </div>
+                                    
+                                   
+                                    <div class="mb-4">
+                                        <label class="form-label">Regular price</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="₹" value="{{variant.price}}" type="text" class="form-control" name='price' pattern="^[0-9]*\.?[0-9]+$" title="Enter a valid positive integer price"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Stock</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="" value="{{variant.stock_quantity}}" type="text" class="form-control" name='stock' pattern="^\d+$" title="Enter a valid stock quantity"/>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    {% comment %} <div class="col-sm-6 mb-3">
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" value="{{product.category}}" name="category" required>
+                                            {% for category in categories %}
+                                            <option value="{{category.id}}" {% if category.id == product.category.id %}selected{% endif %}>{{category}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>  {% endcomment %}
+                                    <div class="mb-4">
+                                        <label class="form-label">Images</label>
+                                        <div class="row">
+                                          {% for image in variant.images.all %}
+                                                {% comment %} <div class="col-sm-3">
+                                                    <img src="{{image.image.url}}" alt="Product Image">
+                                                </div> {% endcomment %}
+                                                <div class="image-container col-sm-3">
+                                                    <img src="{{ image.image.url }}" alt="Image">
+                                                    <a href="{% url 'delete_variant_image' image.id %}">
+                                                        <button type="button">Remove</button>
+                                                    </a>
+                                                </div>
+                                                {% endfor %} 
+                                                
+                                            {% comment %} {% for form in formset %}
+                                                <div class="col-sm-3">
+                                                {{ form.image }}
+                    
+                                                {% if form.instance.pk %}
+                                                <input type="checkbox" name="{{ form.prefix }}-DELETE" id="{{ form.prefix }}-delete" class="form-check-input">
+                                                <label for="{{ form.prefix }}-delete" class="form-check-label">Delete this image</label>
+                                                {% endif %}
+                                                </div>
+                                            {% endfor %} {% endcomment %}
+                                        </div>
+                                        <input type="file" class="form-control" name="image">
+                                    </div>
+                                    
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Update</button> 
+                                </form>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+            </section>
+            <!-- content-main end// -->
+           {% endblock %}

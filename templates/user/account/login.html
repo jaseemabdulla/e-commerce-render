@@ -1,0 +1,79 @@
+{% extends 'user/base.html' %}
+
+
+{% block content %}
+
+{% block head_title %}
+<title>Login | HYGI</title>
+{% endblock head_title %}
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Login
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span>Login
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="page-login-register">
+										<div class="row">
+											<div class="col-lg-6 col-md-6 col-sm-12 sm-m-b-50">
+												<div class="box-form-login">
+													<h2>Login</h2>
+													<div class="box-content">
+														<div class="form-login">
+															<form method="post" class="login">
+																{% csrf_token %}
+																{% include 'includes/messege.html' %}
+																<div class="username">
+																	<label>Username<span class="required">*</span></label>
+																	<input type="text" class="input-text" name="username" id="username">
+																</div>
+																<div class="password">
+																	<label for="password">Password <span class="required">*</span></label>
+																	<input class="input-text" type="password" name="password">
+																</div>
+																
+																<div class="button-login">
+																	<input type="submit" class="button" name="login" value="Login"> 
+																</div>
+															</form>
+															<a href="{% url 'login_with_otp' %}" class="button">Login with otp</a>
+															
+															<a href="{% url 'forgot_password' %}" class="button ml-5">Forgot password....?</a>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6">
+												<div class="login_part_text text-center">
+													<div class="login_part_text_iner">
+														<h2>New to our Shop?</h2>
+														<p>There are advances being made in science and technology
+															everyday, and a good example of this is the</p>
+														<a href="{% url 'user_signin' %}" class="btn_3">Create an Account</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+
+			{% endblock %}
